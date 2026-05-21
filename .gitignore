@@ -1,0 +1,14 @@
+# Node / Angular
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+# PHP
+backend/vendor/
+# Environment
+.env
+*.env
+# Docker
+*.log
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,92 @@
+body { background: #fff7f0; font-family: 'Segoe UI', Arial, sans-serif; }
+.swiggy-main { max-width: 700px; margin: 2rem auto; background: #fff; border-radius: 24px; box-shadow: 0 2px 16px 0 #f5e5e5; padding: 2rem 1.5rem; }
+.swiggy-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1.5px solid #ffe6c2;
+  padding-bottom: 0.7rem;
+  margin-bottom: 1.5rem;
+}
+.swiggy-logo { width: 45px; height: 45px; border-radius: 50%; background: #ffe6c2; }
+.swiggy-header h1 { color: #fc8019; font-size: 1.7rem; margin: 0; font-weight: 600; }
+.swiggy-time { margin-left: auto; color: #ffae42; font-size: 1.1rem; font-weight: 500; }
+.swiggy-searchbar input[type="text"], .swiggy-searchbar input[type="date"] {
+  padding: 0.7rem 1rem;
+  width: 32%;
+  margin-right: 2%;
+  background: #fff8f3;
+  border: 1.5px solid #ffe6c2;
+  border-radius: 8px;
+  font-size: 1.07rem;
+  margin-bottom: 0.8rem;
+  transition: border 0.2s;
+}
+.swiggy-searchbar input[type="text"]:focus, .swiggy-searchbar input[type="date"]:focus {
+  border: 1.5px solid #fc8019;
+  outline: none;
+}
+.swiggy-dateinfo {
+  color: #fc8019; background: #fffaed; border-radius: 7px; padding: 0.6rem 1.2rem; margin-bottom: 1.2rem;
+  font-size: 1rem; font-weight: 500; letter-spacing: 0.5px;
+}
+.swiggy-nobus { text-align: center; margin: 2.2rem 0 1.5rem 0; color: #aaa; font-size: 1.22rem; }
+.swiggy-buslist { margin-top: 1.2rem; }
+.swiggy-buscard {
+  background: #fff9f3;
+  border: 1.5px solid #ffe6c2;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px 0 #fff4e1;
+  margin-bottom: 2.1rem;
+  padding: 1.2rem 1rem 0.8rem 1.2rem;
+  transition: box-shadow 0.2s;
+}
+.swiggy-bus-info {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;
+}
+.swiggy-bus-info h2 { font-size: 1.13rem; margin: 0; color: #ff8b2c; }
+.swiggy-type { background: #fc8019; color: #fff; padding: 2px 13px; border-radius: 13px; font-size: 0.93rem; font-weight: 500; margin-left: 8px; }
+.swiggy-route { color: #888; font-size: 1.05rem; }
+.swiggy-timebox { color: #ffae42; font-size: 1.03rem; font-weight: 500; }
+.swiggy-seats { display: flex; flex-wrap: wrap; gap: 0.38rem; margin-bottom: 0.7rem; }
+.swiggy-seats button {
+  background: #fff; border: 1.5px solid #ffd7b1; color: #fc8019; border-radius: 5px; width: 33px; height: 33px; font-size: 1rem; cursor: pointer;
+  transition: background 0.15s, color 0.15s, border 0.15s;
+}
+.swiggy-seats button.selected { background: #fc8019; color: #fff; border: 1.5px solid #ffaf6e; }
+.swiggy-seats button.booked { background: #eee; color: #bbb; border: 1.5px solid #bbb; cursor: not-allowed; }
+.swiggy-bus-actions { margin-top: 0.5rem; }
+.swiggy-btn {
+  background: #fc8019; color: #fff; padding: 0.46rem 1.1rem; border: none; border-radius: 7px; font-size: 1rem; font-weight: 500; cursor: pointer;
+  transition: background 0.18s;
+}
+.swiggy-btn:hover { background: #e77109; }
+.swiggy-form {
+  background: #fff6ec; border: 1px solid #ffe6c2; border-radius: 8px; padding: 0.7rem 1rem; display: flex; flex-wrap: wrap; gap: 0.6rem;
+  margin-top: 0.8rem; align-items: center;
+}
+.swiggy-form input {
+  background: #fff; border: 1.2px solid #ffe6c2; border-radius: 6px; padding: 0.4rem 0.8rem; font-size: 1rem; width: 130px;
+}
+.swiggy-form button { margin-left: 0.5rem; }
+.swiggy-cancel { background: #fff; color: #fc8019; border: 1.2px solid #fc8019; }
+.swiggy-cancel:hover { background: #ffe6c2; }
+.swiggy-bookings { margin: 2.3rem 0 0 0; }
+.swiggy-bookings h3 { color: #fc8019; font-size: 1.14rem; font-weight: 600; margin-bottom: 1.1rem; }
+.swiggy-booking-card {
+  background: #fff9f1; border: 1px solid #ffe1bf; border-radius: 12px; padding: 1rem 0.9rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center;
+}
+.swiggy-btn-pay {
+  background: #00b386; color: #fff; border: none; border-radius: 5px; padding: 0.4rem 1.1rem; font-size: 1rem; cursor: pointer; font-weight: 500;
+}
+.swiggy-btn-pay:hover { background: #008c6a; }
+.swiggy-paid { color: #00b386; font-weight: bold; font-size: 1.1rem; }
+.swiggy-small { color: #888; font-size: 0.92rem; }
+@media (max-width: 900px) {
+  .swiggy-main { max-width: 99vw; padding: 1.2rem 0.2rem; }
+  .swiggy-searchbar input { width: 100%; margin-right: 0; margin-bottom: 0.65rem; }
+}
+@media (max-width: 600px) {
+  .swiggy-main { padding: 0.6rem 0.1rem; }
+  .swiggy-header { flex-direction: column; align-items: flex-start; gap: 0.7rem; }
+}

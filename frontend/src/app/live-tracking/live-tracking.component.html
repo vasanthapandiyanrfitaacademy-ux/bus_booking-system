@@ -1,0 +1,54 @@
+<!-- Add this inside your component template -->
+
+<div class="routes-container">
+  <ul>
+    <li *ngFor="let route of routes" class="route-item">
+      <div class="route-header">
+        <strong class="route-name">{{ route.name }}</strong>
+        <span class="route-type" [ngClass]="route.type.toLowerCase()">{{ route.type }}</span>
+      </div>
+      <div class="route-path">{{ route.source }} → {{ route.destination }}</div>
+      <div class="route-time">{{ route.departureTime }} → {{ route.arrivalTime }}</div>
+      <button class="view-map-btn" (click)="showRouteMap(route)">View Map</button>
+    </li>
+  </ul>
+</div>
+
+<!-- Modal -->
+<div class="route-map-modal" *ngIf="viewedRoute">
+  <div class="modal-content">
+    <button class="close-btn" (click)="closeRouteMap()">×</button>
+    <h3>{{ viewedRoute.name }}: {{ viewedRoute.source }} → {{ viewedRoute.destination }}</h3>
+    <google-map
+      height="400px"
+      width="100%"
+      [center]="viewedRoute.sourceLatLng"
+      [zoom]="7">
+      <map-marker
+        [position]="viewedRoute.sourceLatLng"
+        [label]="{text: 'S', color: 'white'}"
+        [title]="'Source: ' + viewedRoute.source"></map-marker>
+      <map-marker
+        [position]="viewedRoute.destinationLatLng"
+        [label]="{text: 'D', color: 'white'}"
+        [title]="'Destination: ' + viewedRoute.destination"></map-marker>
+    </google-map>
+    <div class="route-details">
+      <b>Departure:</b> {{ viewedRoute.departureTime }} <b>Arrival:</b> {{ viewedRoute.arrivalTime }}<br>
+      <b>Type:</b> {{ viewedRoute.type }}
+    </div>
+  </div>
+</div>
+    
+
+<footer class="footer">
+  <div class="footer-content">
+    <span>© 2025 Bus Allocation System</span>
+    <nav>
+      <a routerLink="/">Home</a>
+      <a routerLink="/search">Search</a>
+      <a routerLink="/about">About Us</a>
+      <a routerLink="/support">Support</a>
+    </nav>
+  </div>
+</footer>

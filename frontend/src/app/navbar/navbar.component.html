@@ -1,0 +1,40 @@
+<nav class="swiggy-navbar">
+  <!-- Logo Section -->
+  <div class="logo-section">
+    <img src="assets/log.jpg" alt="Logo" class="logo" />
+    <span class="brand">Bus Booking System</span>
+  </div>
+
+  <!-- Navigation Links -->
+  <div class="nav-links">
+    <a routerLink="/home" routerLinkActive="active">Home</a>
+    <a routerLink="/search" routerLinkActive="active">Search</a>
+    <a routerLink="/about" routerLinkActive="active">About</a>
+    <a routerLink="/live-tracking" routerLinkActive="active">Live Tracking</a>
+    <a routerLink="/support" routerLinkActive="active">Support</a>
+  </div>
+
+  <!-- Right Section -->
+  <div class="right-section">
+    <!-- Logged-in User View -->
+    <div class="user-section" *ngIf="isLoggedIn; else guest">
+      <div class="user-profile" (click)="toggleDropdown()">
+        <img src="assets/profile.jpg" alt="User" class="user-icon" />
+        <span class="username">{{ user.name }}</span>
+        <i class="arrow" [class.up]="dropdownOpen">&#9662;</i>
+      </div>
+
+      <!-- Dropdown -->
+      <div class="dropdown-menu" *ngIf="dropdownOpen">
+        <p>👤 {{ user.name }}</p>
+        <a routerLink="/booking">My Bookings</a>
+        <button class="logout-btn" (click)="logout()">Logout</button>
+      </div>
+    </div>
+
+    <!-- Guest View -->
+    <ng-template #guest>
+      <a routerLink="/" class="login-btn">Login</a>
+    </ng-template>
+  </div>
+</nav>

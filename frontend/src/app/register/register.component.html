@@ -1,0 +1,51 @@
+<div class="register-container">
+  <div class="register-card">
+    <img
+      alt="Swiggy Logo"
+      class="logo"
+    />
+    <h2 *ngIf="showForm">Create your account</h2>
+
+    <!-- Show loader instead of form when loading -->
+    <form *ngIf="showForm" (ngSubmit)="register()" #registerForm="ngForm">
+      <input
+        type="text"
+        [(ngModel)]="name"
+        name="name"
+        placeholder="Full Name"
+        required
+      />
+      <input
+        type="email"
+        [(ngModel)]="email"
+        name="email"
+        placeholder="Email"
+        required
+      />
+      <input
+        type="password"
+        [(ngModel)]="password"
+        name="password"
+        placeholder="Password"
+        required
+      />
+
+      <button type="submit">Register</button>
+    </form>
+
+    <!-- BUS Loader Animation -->
+    <div *ngIf="loading && !showForm" class="loader-container">
+      <img
+        src="assets/bus.git.jpg"
+        alt="Bus loading"
+        class="bus-loader"
+      />
+      <p style="margin-top: 1rem;">Registering... Please wait</p>
+    </div>
+
+    <p class="login-link" *ngIf="showForm">
+      Already have an account?
+      <a routerLink="">Login</a>
+    </p>
+  </div>
+</div>

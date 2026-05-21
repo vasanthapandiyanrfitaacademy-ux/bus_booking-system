@@ -1,0 +1,51 @@
+.ticket-container {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 24px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  background: #f9f9f9;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.ticket-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.ticket-details p {
+  margin: 6px 0;
+  font-size: 15px;
+}
+
+.bus-logo {
+  width: 100px;
+  height: auto;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.qr-code {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.qr-code img {
+  width: 120px;
+  height: 120px;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px 18px;
+  background-color: #fc8019;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+button:hover {
+  background-color: #e65c00;
+}

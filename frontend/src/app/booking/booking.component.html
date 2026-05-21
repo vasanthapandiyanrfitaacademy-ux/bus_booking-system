@@ -1,0 +1,22 @@
+<div class="ticket-container" *ngIf="booking && bus">
+  <h2>Your E-Ticket</h2>
+
+  <div class="ticket-details">
+    <img src="assets/log.jpg" alt="Bus Logo" class="bus-logo" />
+    <p><strong>Bus:</strong> {{ bus.name }}</p>
+    <p><strong>Booking ID:</strong> {{ booking.busId }}</p>
+    <p><strong>Passenger:</strong> {{ booking.passenger.name }}</p>
+    <p><strong>Age:</strong> {{ booking.passenger.age }}</p>
+    <p><strong>Mobile:</strong> {{ booking.passenger.mobile }}</p>
+    <p><strong>Aadhaar:</strong> {{ booking.passenger.aadhaar }}</p>
+    <p><strong>Date:</strong> {{ bus.date }}</p>
+    <p><strong>Seats:</strong> {{ booking.seats.join(', ') }}</p>
+    <p><strong>Payment ID:</strong> {{ paymentId }}</p>
+
+    <div *ngIf="qrCodeDataURL" class="qr-code">
+      <img [src]="qrCodeDataURL" alt="QR Code" />
+    </div>
+  </div>
+
+  <button (click)="downloadETicket()">Download E-Ticket</button>
+</div>

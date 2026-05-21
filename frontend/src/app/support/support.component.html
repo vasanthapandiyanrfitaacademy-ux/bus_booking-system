@@ -1,0 +1,21 @@
+<div class="chat-wrapper">
+  <div class="chat-header">
+    <h3>Support Chat</h3>
+    <button (click)="resetChat()">Reset</button>
+  </div>
+
+  <div class="chat-body" id="chatBody">
+    <div *ngFor="let msg of chatHistory"
+         [ngClass]="{'user-msg': msg.sender === 'user', 'bot-msg': msg.sender === 'bot'}"
+         class="chat-msg">
+      <div class="msg-content">{{ msg.content }}</div>
+    </div>
+  </div>
+
+  <div class="chat-footer">
+    <input [(ngModel)]="userMessage"
+           (keyup.enter)="sendMessage()"
+           placeholder="Type your message..." />
+    <button (click)="sendMessage()">Send</button>
+  </div>
+</div>

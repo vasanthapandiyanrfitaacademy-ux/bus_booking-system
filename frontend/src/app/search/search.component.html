@@ -1,0 +1,76 @@
+<div class="swiggy-main">
+  <div class="swiggy-header">
+    <img src="assets/bus.git.jpg" alt="Logo" class="swiggy-logo">
+    <h1>Book Your Bus</h1>
+    <span class="swiggy-time">{{ currentTime }}</span>
+  </div>
+  <div class="swiggy-searchbar">
+    <input type="text" [(ngModel)]="source" (ngModelChange)="filterBuses()" placeholder="From (Eg: Chennai)" />
+    <input type="text" [(ngModel)]="destination" (ngModelChange)="filterBuses()" placeholder="To (Eg: Bangalore)" />
+    <input type="date" [(ngModel)]="date" (change)="filterBuses()" />
+  </div>
+  <div *ngIf="date" class="swiggy-dateinfo">
+    <span>Selected: <b>{{ date }}</b> ({{ getDayOfWeek(date) }})</span>
+  </div>
+
+  <div *ngIf="buses.length === 0 && (source || destination || date)" class="swiggy-nobus">
+    <img src="https://cdn-icons-png.flaticon.com/512/4076/4076500.png" width="80"><br>
+    <span>No buses found for your search.</span>
+  </div>
+
+  <div class="swiggy-buslist">
+    <div *ngFor="let bus of buses" class="swiggy-buscard">
+      <div class="swiggy-bus-info">
+        <div>
+          <h2>{{ bus.name }} <span class="swiggy-type">{{ bus.type }}</span></h2>
+          <span class="swiggy-route">{{ bus.source }} → {{ bus.destination }}</span>
+        </div>
+        <span class="swiggy-timebox">
+          <b>{{ bus.departureTime }}</b> - <b>{{ bus.arrivalTime }}</b>
+        </span>
+      </div>
+      <div class="swiggy-seats">
+        <button
+          *ngFor="let seat of bus.seats"
+          [disabled]="seat.booked"
+          [ngClass]="{ selected: seat.selected, booked: seat.booked }"
+          (click)="toggleSeat(bus, seat)">
+          {{ seat.number }}
+        </button>
+      </div>
+      <div class="swiggy-bus-actions">
+        <button class="swiggy-btn" (click)="showPassengerForm(bus)" *ngIf="!bus.showPassengerForm">
+          Book Selected Seats
+        </button>
+        <form *ngIf="bus.showPassengerForm" (ngSubmit)="addToBooking(bus)" class="swiggy-form">
+          <input type="text" [(ngModel)]="bus.passengerName" name="name-{{bus.id}}" required placeholder="Name"/>
+          <input type="number" [(ngModel)]="bus.passengerAge" name="age-{{bus.id}}" required min="1" max="120" placeholder="Age"/>
+           <input type="text" [(ngModel)]="bus.passengerMobile" name="mobile-{{bus.id}}" required minlength="10" maxlength="10" pattern="[0-9]*" placeholder="Mobile Number"/>
+          <input type="text" [(ngModel)]="bus.passengerAadhaar" name="aadhaar-{{bus.id}}" required minlength="12" maxlength="12" placeholder="Aadhaar"/>
+          <button type="submit" [disabled]="!bus.passengerName || !bus.passengerAge || !bus.passengerAadhaar">Confirm</button>
+          <button type="button" (click)="hidePassengerForm(bus)" class="swiggy-cancel">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="swiggy-bookings" *ngIf="bookings.length > 0">
+    <h3>Your Bookings</h3>
+    <div *ngFor="let booking of bookings; let i = index" class="swiggy-booking-card">
+      <ng-container *ngIf="getBusById(booking.busId) as bus">
+        <div>
+          <b>{{ bus.name }}</b> ({{ bus.source }} → {{ bus.destination }})<br>
+          <span class="swiggy-type">{{ bus.type }}</span> | Seats: {{ booking.seats.join(', ') }}<br>
+          Passenger: {{ booking.passenger.name }} ({{ booking.passenger.age }})
+          ({{ booking.passenger.mobile }})
+          <br>
+          <span class="swiggy-small">Booking Time: {{ booking.bookingTime }}</span>
+        </div>
+        <div>
+          <button class="swiggy-btn-pay" *ngIf="!booking.paid" (click)="payForBooking(i)">Pay Now</button>
+          <span *ngIf="booking.paid" class="swiggy-paid">Paid ✔️</span>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
