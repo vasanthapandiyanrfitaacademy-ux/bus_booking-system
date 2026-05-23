@@ -40,16 +40,16 @@ pipeline {
         stage('Stop Old Containers') {
             steps {
 
-                sh 'sudo docker compose down || true'
+                sh 'docker compose down || true'
             }
         }
 
         stage('Remove Old Images') {
             steps {
 
-                sh 'sudo docker rmi bus-frontend || true'
+                sh 'docker rmi bus-frontend || true'
 
-                sh 'sudo docker rmi bus-backend || true'
+                sh 'docker rmi bus-backend || true'
             }
         }
 
@@ -63,14 +63,14 @@ pipeline {
         stage('Deploy Application') {
             steps {
 
-                sh 'sudo docker compose up -d --force-recreate'
+                sh 'docker compose up -d --force-recreate'
             }
         }
 
         stage('Check Running Containers') {
             steps {
 
-                sh 'sudo docker ps'
+                sh 'docker ps'
             }
         }
     }
