@@ -6,3 +6,4 @@ COPY . /var/www/html/
 # Enable Apache mod_rewrite for clean URLs
 RUN a2enmod rewrite
 EXPOSE 80
+

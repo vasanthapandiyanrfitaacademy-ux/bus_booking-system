@@ -1,34 +1,39 @@
 version: '3.8'
+
 services:
-frontend:
-build: ./frontend
-ports:
-- "80:80"
-depends_on:
-- backend
-backend:
-build: ./backend
-ports:
-- "8080:80"
-depends_on:
-- mysql
-environment:
-DB_HOST: mysql
-DB_USER: bususer
-DB_PASS: buspass123
-DB_NAME: bus_app
-mysql:
-image: mysql:8
-restart: always
-ports:
-- "3306:3306"
-environment:
-MYSQL_ROOT_PASSWORD: root@123
-MYSQL_DATABASE: bus_app
-MYSQL_USER: bususer
-MYSQL_PASSWORD: buspass123
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend/api
+    ports:
+      - "8081:80"
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: mysql
+      DB_USER: bususer
+      DB_PASS: buspass123
+      DB_NAME: bus_app
+
+  mysql:
+    image: mysql:8
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root@123
+      MYSQL_DATABASE: bus_app
+      MYSQL_USER: bususer
+      MYSQL_PASSWORD: buspass123
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/bus.sql:/docker-entrypoint-initdb.d/bus.sql
+
 volumes:
-- mysql_data:/var/lib/mysql
-- ./database/bus.sql:/docker-entrypoint-initdb.d/bus.sql
-volumes:
-mysql_data:
+  mysql_data:
