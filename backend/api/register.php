@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit();
 }
 
-$conn = new mysqli("localhost", "root", "root@123", "bus_app");
+$conn = new mysqli("mysql", "bususer", "buspass123", "bus_app");
 
 $data = json_decode(file_get_contents("php://input"), true);
 
