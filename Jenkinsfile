@@ -6,10 +6,6 @@ pipeline {
         nodejs 'node18'
     }
 
-    environment {
-        COMPOSE_PROJECT_NAME = "bus_booking_pipeline"
-    }
-
     stages {
 
         stage('Clone Code') {
@@ -40,9 +36,9 @@ pipeline {
         stage('Clean Old Containers') {
             steps {
                 sh '''
-                docker compose down -v --remove-orphans || true
-                docker container prune -f || true
-                docker network prune -f || true
+                docker compose down -v || true
+                docker rm -f $(docker ps -aq) || true
+                docker system prune -af || true
                 '''
             }
         }
