@@ -6,6 +6,10 @@ pipeline {
         nodejs 'node18'
     }
 
+    environment {
+        COMPOSE_PROJECT_NAME = "bus_booking_pipeline"
+    }
+
     stages {
 
         stage('Clone Code') {
@@ -33,44 +37,42 @@ pipeline {
             }
         }
 
-        stage('Stop Old Containers') {
+        stage('Clean Old Containers') {
             steps {
-                sh 'docker compose down -v --remove-orphans || true'
+                sh '''
+                docker compose down -v --remove-orphans || true
+                docker container prune -f || true
+                docker network prune -f || true
+                '''
             }
         }
 
-        stage('Clean Docker System') {
-            steps {
-                sh 'docker system prune -af || true'
-            }
-        }
-
-        stage('Rebuild Docker Images') {
+        stage('Build Images') {
             steps {
                 sh 'docker compose build --no-cache'
             }
         }
 
-        stage('Deploy Application') {
+        stage('Deploy') {
             steps {
                 sh 'docker compose up -d --force-recreate'
             }
         }
 
-        stage('Check Running Containers') {
+        stage('Verify') {
             steps {
-                sh 'docker ps -a'
+                sh 'docker ps'
             }
         }
     }
 
     post {
         success {
-            echo 'Deployment Success'
+            echo 'Deployment SUCCESS'
         }
 
         failure {
-            echo 'Pipeline Failed'
+            echo 'Deployment FAILED'
         }
     }
 }
