@@ -14,4 +14,7 @@ FROM nginx:alpine
 
 COPY --from=build /app/dist/my-angular-app/browser /usr/share/nginx/html
 
+# copy nginx config
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 EXPOSE 80
