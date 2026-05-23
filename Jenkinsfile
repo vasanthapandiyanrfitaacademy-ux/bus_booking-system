@@ -8,8 +8,17 @@ pipeline {
 
     stages {
 
+        stage('Clone Code') {
+            steps {
+
+                git branch: 'main',
+                url: 'https://github.com/vasanthapandiyanrfitaacademy-ux/bus_booking-system.git'
+            }
+        }
+
         stage('Check Tools') {
             steps {
+
                 sh 'node -v'
                 sh 'npm -v'
                 sh 'docker -v'
@@ -28,40 +37,49 @@ pipeline {
             }
         }
 
+        stage('Stop Old Containers') {
+            steps {
+
+                sh 'sudo docker compose down || true'
+            }
+        }
+
+        stage('Remove Old Images') {
+            steps {
+
+                sh 'sudo docker rmi bus-frontend || true'
+
+                sh 'sudo docker rmi bus-backend || true'
+            }
+        }
+
         stage('Rebuild Docker Images') {
             steps {
 
-                sh '''
-                sudo docker compose build --no-cache
-                '''
+                sh 'sudo docker compose build --no-cache'
             }
         }
 
-        stage('Remove Old Containers') {
+        stage('Deploy Application') {
             steps {
 
-                sh '''
-                sudo docker compose down
-                '''
+                sh 'sudo docker compose up -d --force-recreate'
             }
         }
 
-        stage('Deploy New Containers') {
+        stage('Check Running Containers') {
             steps {
 
-                sh '''
-                sudo docker compose up -d --force-recreate
-                '''
+                sh 'sudo docker ps'
             }
         }
-
     }
 
     post {
 
         success {
 
-            echo 'All Images Rebuilt and Containers Recreated Successfully'
+            echo 'Deployment Success'
         }
 
         failure {
