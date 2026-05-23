@@ -1,20 +1,15 @@
-FROM node:18 AS build
+FROM node:18 as build
 
 WORKDIR /app
 
 COPY package*.json ./
-
 RUN npm install
 
 COPY . .
+RUN npm run build --configuration production
 
-RUN npm run build -- --configuration production
 
 FROM nginx:alpine
 
-COPY --from=build /app/dist/my-angular-app/browser /usr/share/nginx/html
-
-# copy nginx config
+COPY --from=build /app/dist/my-angular-app /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-EXPOSE 80
